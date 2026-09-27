@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory Management Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="topbar">
+    <h1>Inventory Management Dashboard</h1>
+</header>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <button class="nav-btn active" data-section="overview">Overview</button>
+        <button class="nav-btn" data-section="all-products">All Products</button>
+        <button class="nav-btn" data-section="low-stock">Low Stock</button>
+        <button class="nav-btn" data-section="out-of-stock">Out of Stock</button>
+        <button class="nav-btn" data-section="in-stock">In Stock</button>
+    </nav>
+
+    <!-- Main content -->
+    <main class="content">
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="view active">
+            <h2>Overview</h2>
+            <div id="summary-cards" class="cards-grid">
+                <!-- populated by JS from /api/products/summary -->
+            </div>
+
+            <div class="breakdown">
+                <h3>Stock Breakdown</h3>
+                <div id="breakdown-bar" class="breakdown-bar">
+                    <!-- populated by JS -->
+                </div>
+                <div id="breakdown-legend" class="breakdown-legend">
+                    <!-- populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ALL PRODUCTS -->
+        <section id="all-products" class="view">
+            <div class="section-header">
+                <h2>All Products</h2>
+                <button id="add-product-btn" class="btn btn-primary">+ Add Product</button>
+            </div>
+
+            <div class="toolbar">
+                <input type="text" id="search-input" placeholder="Search products...">
+                <select id="all-products-sort" class="sort-select" data-section="all-products">
+                    <option value="default">Sort by...</option>
+                    <option value="name-asc">Product (A-Z)</option>
+                    <option value="name-desc">Product (Z-A)</option>
+                    <option value="category-asc">Category (A-Z)</option>
+                    <option value="category-desc">Category (Z-A)</option>
+                    <option value="price-asc">Price (Low-High)</option>
+                    <option value="price-desc">Price (High-Low)</option>
+                    <option value="quantity-asc">Quantity (Low-High)</option>
+                    <option value="quantity-desc">Quantity (High-Low)</option>
+                    <option value="supplier-asc">Supplier (A-Z)</option>
+                    <option value="supplier-desc">Supplier (Z-A)</option>
+                    <option value="status-asc">Status (A-Z)</option>
+                    <option value="status-desc">Status (Z-A)</option>
+                    <option value="date-asc">Date Added (Oldest first)</option>
+                    <option value="date-desc">Date Added (Newest first)</option>
+                </select>
+            </div>
+
+            <div id="all-products-table" class="table-wrapper">
+                <!-- populated by JS from /api/products -->
+            </div>
+        </section>
+
+        <!-- LOW STOCK -->
+        <section id="low-stock" class="view">
+            <h2>Low Stock</h2>
+
+            <div class="toolbar">
+                <select id="low-stock-sort" class="sort-select" data-section="low-stock">
+                    <option value="default">Sort by...</option>
+                    <option value="name-asc">Product (A-Z)</option>
+                    <option value="name-desc">Product (Z-A)</option>
+                    <option value="category-asc">Category (A-Z)</option>
+                    <option value="category-desc">Category (Z-A)</option>
+                    <option value="price-asc">Price (Low-High)</option>
+                    <option value="price-desc">Price (High-Low)</option>
+                    <option value="quantity-asc">Quantity (Low-High)</option>
+                    <option value="quantity-desc">Quantity (High-Low)</option>
+                    <option value="supplier-asc">Supplier (A-Z)</option>
+                    <option value="supplier-desc">Supplier (Z-A)</option>
+                    <option value="status-asc">Status (A-Z)</option>
+                    <option value="status-desc">Status (Z-A)</option>
+                    <option value="date-asc">Date Added (Oldest first)</option>
+                    <option value="date-desc">Date Added (Newest first)</option>
+                </select>
+            </div>
+
+            <div id="low-stock-table" class="table-wrapper">
+                <!-- populated by JS from /api/products/low-stock -->
+            </div>
+        </section>
+
+        <!-- OUT OF STOCK -->
+        <section id="out-of-stock" class="view">
+            <h2>Out of Stock</h2>
+
+            <div class="toolbar">
+                <select id="out-of-stock-sort" class="sort-select" data-section="out-of-stock">
+                    <option value="default">Sort by...</option>
+                    <option value="name-asc">Product (A-Z)</option>
+                    <option value="name-desc">Product (Z-A)</option>
+                    <option value="category-asc">Category (A-Z)</option>
+                    <option value="category-desc">Category (Z-A)</option>
+                    <option value="price-asc">Price (Low-High)</option>
+                    <option value="price-desc">Price (High-Low)</option>
+                    <option value="quantity-asc">Quantity (Low-High)</option>
+                    <option value="quantity-desc">Quantity (High-Low)</option>
+                    <option value="supplier-asc">Supplier (A-Z)</option>
+                    <option value="supplier-desc">Supplier (Z-A)</option>
+                    <option value="status-asc">Status (A-Z)</option>
+                    <option value="status-desc">Status (Z-A)</option>
+                    <option value="date-asc">Date Added (Oldest first)</option>
+                    <option value="date-desc">Date Added (Newest first)</option>
+                </select>
+            </div>
+
+            <div id="out-of-stock-table" class="table-wrapper">
+                <!-- populated by JS from /api/products/out-of-stock -->
+            </div>
+        </section>
+
+        <!-- IN STOCK -->
+        <section id="in-stock" class="view">
+            <h2>In Stock</h2>
+
+            <div class="toolbar">
+                <select id="in-stock-sort" class="sort-select" data-section="in-stock">
+                    <option value="default">Sort by...</option>
+                    <option value="name-asc">Product (A-Z)</option>
+                    <option value="name-desc">Product (Z-A)</option>
+                    <option value="category-asc">Category (A-Z)</option>
+                    <option value="category-desc">Category (Z-A)</option>
+                    <option value="price-asc">Price (Low-High)</option>
+                    <option value="price-desc">Price (High-Low)</option>
+                    <option value="quantity-asc">Quantity (Low-High)</option>
+                    <option value="quantity-desc">Quantity (High-Low)</option>
+                    <option value="supplier-asc">Supplier (A-Z)</option>
+                    <option value="supplier-desc">Supplier (Z-A)</option>
+                    <option value="status-asc">Status (A-Z)</option>
+                    <option value="status-desc">Status (Z-A)</option>
+                    <option value="date-asc">Date Added (Oldest first)</option>
+                    <option value="date-desc">Date Added (Newest first)</option>
+                </select>
+            </div>
+
+            <div id="in-stock-table" class="table-wrapper">
+                <!-- populated by JS from /api/products/in-stock -->
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- Add / Edit Product modal (shared by Create and Update) -->
+<div id="product-modal" class="modal-overlay hidden">
+    <div class="modal">
+        <h3 id="modal-title">Add Product</h3>
+
+        <form id="product-form">
+            <input type="hidden" id="product-id" value="">
+
+            <label for="product-name">Product Name</label>
+            <input type="text" id="product-name" required>
+
+            <label for="product-category">Category</label>
+            <input type="text" id="product-category" required>
+
+            <label for="product-price">Price (₹)</label>
+            <input type="number" id="product-price" min="0" step="0.01" required>
+
+            <label for="product-quantity">Quantity</label>
+            <input type="number" id="product-quantity" min="0" step="1" required>
+
+            <label for="product-supplier">Supplier</label>
+            <input type="text" id="product-supplier" required>
+
+            <label for="product-date">Date Added</label>
+            <input type="date" id="product-date" required>
+
+            <div id="modal-error" class="modal-error hidden"></div>
+
+            <div class="modal-actions">
+                <button type="button" id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+                <button type="submit" id="modal-save-btn" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
